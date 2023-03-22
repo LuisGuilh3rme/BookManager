@@ -32,6 +32,7 @@ internal class Program
             Console.WriteLine("2 - Listar livros");
             Console.WriteLine("3 - Remover livros");
             Console.WriteLine("4 - Trocar Status");
+            Console.WriteLine("5 - Ordenar arquivos");
             Console.WriteLine("0 - Sair do programa");
 
             // Armazena posição escolhida se for válida
@@ -39,7 +40,7 @@ internal class Program
             correct = int.TryParse(Console.ReadLine(), out opt);
 
             // Verificador de escolha
-            if (opt < 0 || opt > 4) correct = false;
+            if (opt < 0 || opt > 5) correct = false;
             if (!correct)
             {
                 PrintError("Opção Inválida");
@@ -73,6 +74,9 @@ internal class Program
             case 4:
                 correct = ChangeStatus();
                 break;
+            case 5:
+                correct = OrderShelf();
+                break;
         }
 
         Console.WriteLine();
@@ -84,7 +88,6 @@ internal class Program
 
     private static bool CreateBook()
     {
-        Console.Clear();
         Console.WriteLine("**ADICIONAR LIVRO**\n\n");
 
         Console.Write("Título do livro: ");
@@ -125,6 +128,7 @@ internal class Program
 
     private static bool PrintShelf()
     {
+        Console.WriteLine("**EXIBIR ESTANTE**\n\n");
         // Verifica tamanho da estante
         if (shelf.ShelfCount() == 0)
         {
@@ -146,6 +150,7 @@ internal class Program
 
     private static bool RemoveBook()
     {
+        Console.WriteLine("**REMOVER LIVRO**\n\n");
         // Imprime ou retorna se estante está vazia
         if (!PrintShelf()) return false;
 
@@ -166,6 +171,7 @@ internal class Program
 
     private static bool ChangeStatus()
     {
+        Console.WriteLine("**TROCAR STATUS DO LIVRO**\n\n");
         // Imprime ou retorna se estante está vazia
         if (!PrintShelf()) return false;
 
@@ -178,6 +184,32 @@ internal class Program
         // Procura e altera o status do livro pelo index
         if (!shelf.ChangeBookStatus(index)) {
             PrintError("Livro não encontrado!");
+            return false;
+        }
+        return true;
+    }
+
+    private static bool OrderShelf()
+    {
+        Console.WriteLine("**ORDENAR ESTANTE**\n\n");
+        if (shelf.ShelfCount() == 0)
+        {
+            PrintError("Estante vazia!");
+            return false;
+        }
+
+        int opt = 0;
+        do
+        {
+            Console.WriteLine("1 - Ordenar por TITULO");
+            Console.WriteLine("2 - Ordenar por AUTOR");
+            Console.WriteLine("3 - Ordenar por STATUS");
+            int.TryParse(Console.ReadLine(), out opt);
+        } while (opt == 0);
+
+        if (!shelf.Order(opt))
+        {
+            PrintError("Impossível ordenar lista");
             return false;
         }
         return true;

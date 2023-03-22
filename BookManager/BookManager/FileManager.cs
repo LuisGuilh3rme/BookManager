@@ -122,7 +122,9 @@ namespace BookManager.BookManager
                 line = _sr.ReadLine();
             }
             _sr.Close();
+
             return books;
         }
+
     }
 }

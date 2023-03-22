@@ -87,5 +87,24 @@ namespace BookManager.BookManager
             }
             return publisherTag;
         }
+
+        public bool Order(int opt)
+        {
+            // Opções de ordenação
+
+            // Ordenar por titulo
+            if (opt == 1) Books = Books.OrderBy(book => book.Title).ToList();
+
+            // Ordenar por autor
+            else if (opt == 2) Books = Books.OrderBy(book => book.InlineWriters).ToList();
+
+            // Ordenar por status 
+            else if (opt == 3) Books = Books.OrderBy(book => book.Status).ToList();
+
+            else return false;
+
+            fm.OverWrite(Books);
+            return true;
+        }
     }
 }
