@@ -57,16 +57,38 @@ namespace BookManager.BookManager
 
             // Armazena linha por linha cada livro
             string line = _sr.ReadLine();
+            string[] aux;
+
             while (line != null)
             {
                 // Pula informações que não sejam livros:
                 if (line.Contains("LIVROS EMPRESTADOS") || line.Contains("LIVROS ARMAZENADOS")) line = _sr.ReadLine();
 
-                // Converte o ToString para tipo livro
-                books.Add(new Book("teste", "teste", null));
+                // Armazena informações em uma array
+                aux = line.Split('|');
+
+                // Cria uma array auxiliar com informações de cada atributo do objeto
+                string[] objectCreator = new string[aux.Length];
+
+                for (int i = 0; i < aux.Length; i++)
+                {
+                    aux[i] = aux[i].Trim();
+
+                    // Pega a primeira aparição do ':'
+                    int doubleDot = aux[i].IndexOf(':');
+
+                    // Armazena tudo após ele
+                    string objectAux = "";
+                    for (int j = doubleDot + 1; j < aux[i].Length; j++)
+                    {
+                        objectAux += aux[i][j];
+                    }
+                    objectCreator[i] = objectAux.Trim();
+                }
+                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2]));
+
                 line = _sr.ReadLine();
             }
-
             _sr.Close();
             return books;
         }

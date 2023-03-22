@@ -92,10 +92,7 @@ internal class Program
         }
 
         Console.WriteLine("Digite o autor, se for mais de um, os separe com barra '|'. Exemplo: Fulano | Ciclano");
-        string writer = Console.ReadLine();
-
-        // Separa escritor por escritor
-        string[] writers = SeparateWriters(writer);
+        string writers = Console.ReadLine();
 
         // Cria livro
         Book book = new(title, publisher, writers);
@@ -124,7 +121,7 @@ internal class Program
         }
 
         // Exibe cada livro na estante
-        for (int i = 0; i < shelf.Books.Count; i++)
+        for (int i = 0; i < shelf.ShelfCount(); i++)
         {
             Console.WriteLine(shelf.Books[i]);
         }
@@ -135,19 +132,5 @@ internal class Program
     {
         return false;
         //return shelf.FindBook(title, publisher);
-    }
-
-    private static string[] SeparateWriters(string writer)
-    {
-        // Separa os escritores pela barra
-        string[] writers = writer.Split('|');
-
-        // Retira os espaços em excesso
-        for (int i = 0; i < writers.Length; i++)
-        {
-            writers[i] = writers[i].Trim();
-        }
-
-        return writers; 
     }
 }

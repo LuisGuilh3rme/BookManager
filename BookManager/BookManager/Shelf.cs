@@ -26,6 +26,7 @@ namespace BookManager.BookManager
 
         public int ShelfCount()
         {
+            Books = SyncShelf();
             return Books.Count;
         }
 
