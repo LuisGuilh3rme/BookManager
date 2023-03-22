@@ -130,7 +130,6 @@ internal class Program
 
     private static bool VerifyBook(string title, string publisher)
     {
-        return false;
-        //return shelf.FindBook(title, publisher);
+        return shelf.FindBook(title, publisher);
     }
 }

@@ -85,6 +85,8 @@ namespace BookManager.BookManager
                     }
                     objectCreator[i] = objectAux.Trim();
                 }
+
+                // Cria um novo objeto com a array auxiliar e armazena na lista
                 books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2]));
 
                 line = _sr.ReadLine();
