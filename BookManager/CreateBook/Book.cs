@@ -26,7 +26,7 @@ namespace BookManager.CreateBook
             ISBN = isbn;
         }
 
-        public void TrocarStatus()
+        public void ChangeStatus()
         {
             // Troca o status do livro
             if (Status == "Guardado")

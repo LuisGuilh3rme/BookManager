@@ -82,7 +82,7 @@ namespace BookManager.BookManager
                 // Armazena informações em uma array
                 aux = line.Split('|');
 
-                if (aux.Length != 4) _sr.ReadLine();
+                if (aux.Length != 5) _sr.ReadLine();
 
                 // Cria uma array auxiliar com informações de cada atributo do objeto
                 string[] objectCreator = new string[aux.Length];

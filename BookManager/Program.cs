@@ -39,11 +39,11 @@ internal class Program
             correct = int.TryParse(Console.ReadLine(), out opt);
 
             // Verificador de escolha
-            if (opt < 0 || opt > 3) correct = false;
+            if (opt < 0 || opt > 4) correct = false;
             if (!correct)
             {
-                Console.WriteLine("Opção Inválida");
-                Console.WriteLine("Tecle ENTER para continuar");
+                PrintError("Opção Inválida");
+                Console.WriteLine("Aperte ENTER para continuar");
                 Console.ReadLine();
             }
 
@@ -68,6 +68,9 @@ internal class Program
             case 3:
                 correct = RemoveBook();
                 break;
+            case 4:
+                correct = ChangeStatus();
+                break;
         }
 
         Console.WriteLine();
@@ -90,18 +93,14 @@ internal class Program
         // Verificar se livro já não está registrado
         if (VerifyBook(title, publisher))
         {
-            Console.WriteLine("Livro já foi anteriormente registrado!");
-            Console.WriteLine("Tecle ENTER para continuar");
-            Console.ReadLine();
+            PrintError("Livro já foi anteriormente registrado!");
             return false;
         }
 
         ISBN isbn = CreateISBN(publisher);
         if (isbn == null)
         {
-            Console.WriteLine("Impossível gerar ISBN");
-            Console.WriteLine("Tecle ENTER para continuar");
-            Console.ReadLine();
+            PrintError("Impossível gerar ISBN");
             return false;
         }
 
@@ -114,9 +113,7 @@ internal class Program
         // Verificar se livro já não está registrado
         if (!shelf.StoreBook(book))
         {
-            Console.WriteLine("Livro já foi anteriormente registrado!");
-            Console.WriteLine("Tecle ENTER para continuar");
-            Console.ReadLine();
+            PrintError("Livro já foi anteriormente registrado!");
             return false;
         }
 
@@ -128,9 +125,7 @@ internal class Program
         // Verifica tamanho da estante
         if (shelf.ShelfCount() == 0)
         {
-            Console.WriteLine("Estante vazia!");
-            Console.WriteLine("Tecle ENTER para continuar");
-            Console.ReadLine();
+            PrintError("Estante vazia!");
             return false;
         }
 
@@ -149,12 +144,33 @@ internal class Program
         if (!PrintShelf()) return false;
 
         int index = 0;
-        {
+        do{
             Console.Write("Insira o index do livro que quer retirar: ");
             int.TryParse(Console.ReadLine(), out index);
         } while (index == 0);
 
-        shelf.RemoveBook(index);
+        if (!shelf.RemoveBook(index))
+        {
+            PrintError("Livro não encontrado!");
+            return false;
+        }
+        return true;
+    }
+
+    private static bool ChangeStatus()
+    {
+        if (!PrintShelf()) return false;
+
+        int index = 0;
+        do {
+            Console.Write("Insira o index do livro que quer alterar o status: ");
+            int.TryParse(Console.ReadLine(), out index);
+        } while (index == 0) ;
+
+        if (!shelf.ChangeBookStatus(index)) {
+            PrintError("Livro não encontrado!");
+            return false;
+        }
         return true;
     }
 
@@ -181,5 +197,14 @@ internal class Program
     private static bool VerifyBook(string title, string publisher)
     {
         return shelf.FindBook(title, publisher);
+    }
+
+    private static void PrintError(string error)
+    {
+        // Aviso de erro personalizado
+        ConsoleColor aux = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(error);
+        Console.ForegroundColor = aux;
     }
 }

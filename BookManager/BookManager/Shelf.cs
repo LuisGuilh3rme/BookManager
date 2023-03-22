@@ -26,7 +26,17 @@ namespace BookManager.BookManager
 
         public bool RemoveBook(int index)
         {
+            if (Books.Count < index) return false;
             Books.RemoveAt(index - 1);
+
+            fm.OverWrite(Books);
+            return true;
+        }
+
+        public bool ChangeBookStatus(int index)
+        {
+            if (Books.Count < index) return false;
+            Books[index - 1].ChangeStatus();
 
             fm.OverWrite(Books);
             return true;
