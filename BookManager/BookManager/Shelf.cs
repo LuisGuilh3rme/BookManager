@@ -46,6 +46,28 @@ namespace BookManager.BookManager
             // Retorna se existe algum com a mesma editora
             return sameNameBooks.Any(book => book.Publisher == publisher);
         }
-        //public bool FindBook(string isbn) { }
+
+        public bool FindBook(ISBN isbn)
+        {
+            return Books.Any(book => book.ISBN == isbn);
+        }
+
+        public string FindPublisher(string publisher)
+        {
+            // Procura o dígito da editora caso existente
+            if (Books.Any(book => book.Publisher == publisher))
+            {
+                return Books.Find(book => book.Publisher == publisher).ISBN.Publisher;
+            }
+
+            // Cria um digito para a editora
+            Random rdn = new Random();
+            string publisherTag = "";
+            for (int i = 0; i < 2; i++)
+            {
+                publisherTag += rdn.Next(10);
+            }
+            return publisherTag;
+        }
     }
 }

@@ -91,11 +91,20 @@ internal class Program
             return false;
         }
 
+        ISBN isbn = CreateISBN(publisher);
+        if (isbn == null)
+        {
+            Console.WriteLine("Impossível gerar ISBN");
+            Console.WriteLine("Tecle ENTER para continuar");
+            Console.ReadLine();
+            return false;
+        }
+
         Console.WriteLine("Digite o autor, se for mais de um, os separe com barra '|'. Exemplo: Fulano | Ciclano");
         string writers = Console.ReadLine();
 
         // Cria livro
-        Book book = new(title, publisher, writers);
+        Book book = new(title, publisher, writers, isbn);
 
         // Verificar se livro já não está registrado
         if (!shelf.StoreBook(book))
@@ -126,6 +135,26 @@ internal class Program
             Console.WriteLine(shelf.Books[i]);
         }
         return true;
+    }
+
+    private static ISBN CreateISBN(string publisher)
+    {
+        string publisherTag = shelf.FindPublisher(publisher);
+        Random rnd = new Random();
+
+        // Cria elemento registrante
+        string regElemnt = "";
+        for (int i = 0; i < 5; i++)
+        {
+            regElemnt += rnd.Next(10);
+        }
+
+        // Cria ISBN
+        ISBN isbn = new ISBN(regElemnt, publisherTag);
+
+        // Verifica se já existe ou não
+        if (shelf.FindBook(isbn)) return null;
+        return isbn;
     }
 
     private static bool VerifyBook(string title, string publisher)

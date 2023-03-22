@@ -67,6 +67,8 @@ namespace BookManager.BookManager
                 // Armazena informações em uma array
                 aux = line.Split('|');
 
+                if (aux.Length != 4) _sr.ReadLine();
+
                 // Cria uma array auxiliar com informações de cada atributo do objeto
                 string[] objectCreator = new string[aux.Length];
 
@@ -81,13 +83,24 @@ namespace BookManager.BookManager
                     string objectAux = "";
                     for (int j = doubleDot + 1; j < aux[i].Length; j++)
                     {
+
+                    // Verifica se está na linha do isbn, e verifica se é valido
+                        if (i == 3)
+                        {
+                            if (aux[i].Length != 23)
+                            {
+                                objectAux += "000-00-00000-00-00";
+                                break;
+                            }
+                        }
+
                         objectAux += aux[i][j];
                     }
                     objectCreator[i] = objectAux.Trim();
                 }
 
                 // Cria um novo objeto com a array auxiliar e armazena na lista
-                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2]));
+                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3])));
 
                 line = _sr.ReadLine();
             }
