@@ -77,7 +77,8 @@ internal class Program
 
         Console.WriteLine();
 
-        Console.WriteLine("Deseja continuar? Digite N para PARAR | Qualquer outra tecla para CONTINUAR: ");
+        if (correct) Console.WriteLine("Sucesso! Digite N para PARAR | Qualquer outra tecla para CONTINUAR: ");
+        else Console.WriteLine("Tecle N para PARAR | Qualquer outra tecla para tentar novamente");
         return (Console.ReadLine().ToUpper() == "N") ? false: true;
     }
 
@@ -145,6 +146,7 @@ internal class Program
 
     private static bool RemoveBook()
     {
+        // Imprime ou retorna se estante está vazia
         if (!PrintShelf()) return false;
 
         int index = 0;
@@ -153,6 +155,7 @@ internal class Program
             int.TryParse(Console.ReadLine(), out index);
         } while (index == 0);
 
+        // Procura e remove o livro pelo index
         if (!shelf.RemoveBook(index))
         {
             PrintError("Livro não encontrado!");
@@ -163,6 +166,7 @@ internal class Program
 
     private static bool ChangeStatus()
     {
+        // Imprime ou retorna se estante está vazia
         if (!PrintShelf()) return false;
 
         int index = 0;
@@ -171,6 +175,7 @@ internal class Program
             int.TryParse(Console.ReadLine(), out index);
         } while (index == 0) ;
 
+        // Procura e altera o status do livro pelo index
         if (!shelf.ChangeBookStatus(index)) {
             PrintError("Livro não encontrado!");
             return false;

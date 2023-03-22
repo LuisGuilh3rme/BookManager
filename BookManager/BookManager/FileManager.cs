@@ -43,6 +43,7 @@ namespace BookManager.BookManager
 
         public bool OverWrite(List<Book> books)
         {
+            // Sobrescrever informações caso necessário
             _sw = new StreamWriter(FullPath);
             _sw.Close();
 
