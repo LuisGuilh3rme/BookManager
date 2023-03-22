@@ -19,24 +19,14 @@ namespace BookManager.CreateBook
             Title = title;
             Publisher = publisher;
             Writers = writers;
+            SeparateWriters();
         }
 
-        private string AllWriters()
-        {
-            string writers = "";
-            for (int i = 0; i < Writers.Length; i++)
-            {
-                writers += Writers[i];
-                if (i != Writers.Length - 1) writers += " & ";
-            }
-            return writers;
-        }
-
-        private string SeparateWriters(string writer)
+        private string SeparateWriters()
         {
             InlineWriters = "";
             // Separa os escritores pela barra
-            string[] writersArray = writer.Split('|');
+            string[] writersArray = Writers.Split('|');
 
             // Retira os espaços em excesso
             for (int i = 0; i < writersArray.Length; i++)
