@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.Design;
+﻿using BookManager.BookManager;
 using BookManager.CreateBook;
 
 internal class Program
 {
+    static Shelf shelf = new Shelf();
     private static void Main(string[] args)
     {
         int opt = 0;
@@ -89,6 +90,16 @@ internal class Program
 
         // Separa escritor por escritor
         string[] writers = SeparateWriters(writer);
+
+        Book book = new(title, publisher, writers);
+        if (!shelf.StoreBook(book))
+        {
+            Console.WriteLine("Livro já foi anteriormente registrado!");
+            Console.WriteLine("Tecle ENTER para continuar");
+            Console.ReadLine();
+            return false;
+        }
+        return true;
     }
 
     private static bool VerifyBook(string title, string publisher)

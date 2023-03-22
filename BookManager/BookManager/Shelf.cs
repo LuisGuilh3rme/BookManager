@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookManager.CreateBook;
 
 namespace BookManager.BookManager
 {
     internal class Shelf
     {
+        public List<Book> books;
+
+        public Shelf()
+        {
+            books = new List<Book>();
+        }
+
+        public bool StoreBook(Book book)
+        {
+            // Verifica se por algum motivo o livro já foi registrado
+            if (books.IndexOf(book) != -1) return false;
+
+            books.Add(book);
+            return true;
+        }
     }
 }
