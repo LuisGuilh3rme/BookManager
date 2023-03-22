@@ -11,6 +11,7 @@ namespace BookManager.CreateBook
         public string Title { get; private set; }
         public string Publisher { get; private set; }
         public string[] Writers { get; private set; }
+        public string InlineWriters { get; private set; }
         public ISBN ISBN { get; private set; }
 
         public Book(string title, string publisher, string[] writers)
@@ -33,8 +34,7 @@ namespace BookManager.CreateBook
 
         public override string ToString()
         {
-            return $"Título: {Title} | Editora: {Publisher} | Autores: {AllWriters()} | ISBN: NENHUM";
+            return $"Título: {Title} | Editora: {Publisher} | Autores: NENHUM | ISBN: NENHUM";
         }
-
     }
 }

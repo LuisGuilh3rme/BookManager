@@ -3,7 +3,8 @@ using BookManager.CreateBook;
 
 internal class Program
 {
-    static Shelf shelf = new Shelf();
+    static Shelf shelf = new();
+
     private static void Main(string[] args)
     {
         int opt = 0;
@@ -52,10 +53,15 @@ internal class Program
     private static bool BookManagement(int opt)
     {
         bool correct = false;
+
+        // Menu de escolhas do usuário
         switch(opt)
         {
             case 1:
                 correct = CreateBook();
+                break;
+            case 2:
+                correct = PrintShelf();
                 break;
         }
 
@@ -91,7 +97,10 @@ internal class Program
         // Separa escritor por escritor
         string[] writers = SeparateWriters(writer);
 
+        // Cria livro
         Book book = new(title, publisher, writers);
+
+        // Verificar se livro já não está registrado
         if (!shelf.StoreBook(book))
         {
             Console.WriteLine("Livro já foi anteriormente registrado!");
@@ -99,12 +108,33 @@ internal class Program
             Console.ReadLine();
             return false;
         }
+
+        return true;
+    }
+
+    private static bool PrintShelf()
+    {
+        // Verifica tamanho da estante
+        if (shelf.ShelfCount() == 0)
+        {
+            Console.WriteLine("Estante vazia!");
+            Console.WriteLine("Tecle ENTER para continuar");
+            Console.ReadLine();
+            return false;
+        }
+
+        // Exibe cada livro na estante
+        for (int i = 0; i < shelf.Books.Count; i++)
+        {
+            Console.WriteLine(shelf.Books[i]);
+        }
         return true;
     }
 
     private static bool VerifyBook(string title, string publisher)
     {
         return false;
+        //return shelf.FindBook(title, publisher);
     }
 
     private static string[] SeparateWriters(string writer)
