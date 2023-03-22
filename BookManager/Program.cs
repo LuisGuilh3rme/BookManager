@@ -81,8 +81,8 @@ internal class Program
 
         Console.WriteLine();
 
-        if (correct) Console.WriteLine("Sucesso! Digite N para PARAR | Qualquer outra tecla para CONTINUAR: ");
-        else Console.WriteLine("Tecle N para PARAR | Qualquer outra tecla para tentar novamente");
+        if (correct) Console.WriteLine("Sucesso! Digite N para PARAR | Tecle ENTER para CONTINUAR: ");
+        else Console.WriteLine("Digite N para PARAR | ENTER para tentar novamente");
         return (Console.ReadLine().ToUpper() == "N") ? false: true;
     }
 
@@ -142,7 +142,7 @@ internal class Program
         int count = 0;
         for (int i = 0; i < shelf.ShelfCount(); i++)
         {
-            Console.Write("{0})", ++count);
+            Console.Write("{0}) ", ++count);
             Console.WriteLine(shelf.Books[i]);
         }
         return true;
