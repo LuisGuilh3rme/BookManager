@@ -30,6 +30,8 @@ internal class Program
             Console.WriteLine("Menu de opções: ");
             Console.WriteLine("1 - Adicionar livro");
             Console.WriteLine("2 - Listar livros");
+            Console.WriteLine("3 - Remover livros");
+            Console.WriteLine("4 - Trocar Status");
             Console.WriteLine("0 - Sair do programa");
 
             // Armazena posição escolhida se for válida
@@ -37,7 +39,7 @@ internal class Program
             correct = int.TryParse(Console.ReadLine(), out opt);
 
             // Verificador de escolha
-            if (opt < 0 || opt > 2) correct = false;
+            if (opt < 0 || opt > 3) correct = false;
             if (!correct)
             {
                 Console.WriteLine("Opção Inválida");
@@ -62,6 +64,9 @@ internal class Program
                 break;
             case 2:
                 correct = PrintShelf();
+                break;
+            case 3:
+                correct = RemoveBook();
                 break;
         }
 
@@ -130,10 +135,26 @@ internal class Program
         }
 
         // Exibe cada livro na estante
+        int count = 0;
         for (int i = 0; i < shelf.ShelfCount(); i++)
         {
+            Console.Write("{0})", ++count);
             Console.WriteLine(shelf.Books[i]);
         }
+        return true;
+    }
+
+    private static bool RemoveBook()
+    {
+        if (!PrintShelf()) return false;
+
+        int index = 0;
+        {
+            Console.Write("Insira o index do livro que quer retirar: ");
+            int.TryParse(Console.ReadLine(), out index);
+        } while (index == 0);
+
+        shelf.RemoveBook(index);
         return true;
     }
 

@@ -21,11 +21,12 @@ namespace BookManager.BookManager
             else _sw = new StreamWriter(FullPath);
 
             // Tenta armazenar item
-            try 
+            try
             {
                 _sw.WriteLine(item);
                 _sw.Close();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 // Em caso de erro, avisar e retornar falso
                 Console.WriteLine("Erro encontrado: " + ex.Message);
@@ -40,6 +41,19 @@ namespace BookManager.BookManager
             return File.Exists(FullPath);
         }
 
+        public bool OverWrite(List<Book> books)
+        {
+            _sw = new StreamWriter(FullPath);
+            _sw.Close();
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                StoreItem(books[i].ToString());
+            }
+
+            return true;
+        }
+
         public List<Book> ReturnInformation()
         {
             List<Book> books = new List<Book>();
@@ -48,7 +62,8 @@ namespace BookManager.BookManager
             try
             {
                 _sr = new StreamReader(FullPath);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 // Em caso de erro, avisar e retornar nulo
                 Console.WriteLine("Erro encontrado: " + ex.Message);
@@ -84,9 +99,10 @@ namespace BookManager.BookManager
                     for (int j = doubleDot + 1; j < aux[i].Length; j++)
                     {
 
-                    // Verifica se está na linha do isbn, e verifica se é valido
+                        // Verifica se está na linha do isbn, e verifica se é valido
                         if (i == 3)
                         {
+                            // Se for inválida, imprimir valor zerado
                             if (aux[i].Length != 23)
                             {
                                 objectAux += "000-00-00000-00-00";
@@ -100,7 +116,7 @@ namespace BookManager.BookManager
                 }
 
                 // Cria um novo objeto com a array auxiliar e armazena na lista
-                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3])));
+                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3]), objectCreator[4]));
 
                 line = _sr.ReadLine();
             }

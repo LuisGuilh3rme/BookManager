@@ -12,15 +12,27 @@ namespace BookManager.CreateBook
         public string Publisher { get; private set; }
         public string Writers { get; private set; }
         public string InlineWriters { get; private set; }
+
+        public string Status { get; private set; }
         public ISBN ISBN { get; private set; }
 
-        public Book(string title, string publisher, string writers, ISBN isbn)
+        public Book(string title, string publisher, string writers, ISBN isbn, string status = "Guardado")
         {
             Title = title;
             Publisher = publisher;
             Writers = writers;
             SeparateWriters();
+            Status = status;
             ISBN = isbn;
+        }
+
+        public void TrocarStatus()
+        {
+            // Troca o status do livro
+            if (Status == "Guardado")
+                Status = "Emprestado";
+
+            else Status = "Guardado";
         }
 
         private string SeparateWriters()
@@ -47,7 +59,7 @@ namespace BookManager.CreateBook
 
         public override string ToString()
         {
-            return $"Título: {Title} | Editora: {Publisher} | Autores: {InlineWriters} | ISBN: {ISBN}";
+            return $"Título: {Title} | Editora: {Publisher} | Autores: {InlineWriters} | ISBN: {ISBN} | Status: {Status}";
         }
     }
 }

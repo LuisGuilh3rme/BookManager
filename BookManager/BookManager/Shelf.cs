@@ -24,6 +24,14 @@ namespace BookManager.BookManager
             return true;
         }
 
+        public bool RemoveBook(int index)
+        {
+            Books.RemoveAt(index - 1);
+
+            fm.OverWrite(Books);
+            return true;
+        }
+
         public int ShelfCount()
         {
             Books = SyncShelf();
