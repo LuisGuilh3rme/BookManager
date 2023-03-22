@@ -77,48 +77,48 @@ namespace BookManager.BookManager
 
             while (line != null)
             {
-                // Pula informações que não sejam livros:
-                if (line.Contains("LIVROS EMPRESTADOS") || line.Contains("LIVROS ARMAZENADOS")) line = _sr.ReadLine();
-
-                // Armazena informações em uma array
-                aux = line.Split('|');
-
-                if (aux.Length != 5) _sr.ReadLine();
-
-                // Cria uma array auxiliar com informações de cada atributo do objeto
-                string[] objectCreator = new string[aux.Length];
-
-                for (int i = 0; i < aux.Length; i++)
+                try
                 {
-                    aux[i] = aux[i].Trim();
+                    // Armazena informações em uma array
+                    aux = line.Split('|');
 
-                    // Pega a primeira aparição do ':'
-                    int doubleDot = aux[i].IndexOf(':');
+                    // Cria uma array auxiliar com informações de cada atributo do objeto
+                    string[] objectCreator = new string[aux.Length];
 
-                    // Armazena tudo após ele
-                    string objectAux = "";
-                    for (int j = doubleDot + 1; j < aux[i].Length; j++)
+                    for (int i = 0; i < aux.Length; i++)
                     {
+                        aux[i] = aux[i].Trim();
 
-                        // Verifica se está na linha do isbn, e verifica se é valido
-                        if (i == 3)
+                        // Pega a primeira aparição do ':'
+                        int doubleDot = aux[i].IndexOf(':');
+
+                        // Armazena tudo após ele
+                        string objectAux = "";
+                        for (int j = doubleDot + 1; j < aux[i].Length; j++)
                         {
-                            // Se for inválida, imprimir valor zerado
-                            if (aux[i].Length != 23)
+
+                            // Verifica se está na linha do isbn, e verifica se é valido
+                            if (i == 3)
                             {
-                                objectAux += "000-00-00000-00-00";
-                                break;
+                                // Se for inválida, imprimir valor zerado
+                                if (aux[i].Length != 23)
+                                {
+                                    objectAux += "000-00-00000-00-00";
+                                    break;
+                                }
                             }
+
+                            objectAux += aux[i][j];
                         }
-
-                        objectAux += aux[i][j];
+                        objectCreator[i] = objectAux.Trim();
                     }
-                    objectCreator[i] = objectAux.Trim();
+
+                    // Cria um novo objeto com a array auxiliar e armazena na lista
+                    books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3]), objectCreator[4]));
+                } catch(Exception ex)
+                {
+                    
                 }
-
-                // Cria um novo objeto com a array auxiliar e armazena na lista
-                books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3]), objectCreator[4]));
-
                 line = _sr.ReadLine();
             }
             _sr.Close();
