@@ -56,8 +56,10 @@ internal class Program
     {
         bool correct = false;
 
+        Console.WriteLine();
+
         // Menu de escolhas do usuário
-        switch(opt)
+        switch (opt)
         {
             case 1:
                 correct = CreateBook();
@@ -128,6 +130,8 @@ internal class Program
             PrintError("Estante vazia!");
             return false;
         }
+
+        Console.WriteLine("Local de armazenamento: Documents\\estante.txt");
 
         // Exibe cada livro na estante
         int count = 0;
