@@ -1,6 +1,6 @@
 
 # BookManager
-## Activity developed in group for projeto interação 5by5
+## Activity developed for projeto interação 5by5
 <div>
   <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/csharp/csharp-plain.svg" title="CSharp" alt="Csharp" width="40" height="40"/>&nbsp;<img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/visualstudio/visualstudio-plain.svg" title="VisualStudio" alt="VisualStudio" width="40" height="40"/>&nbsp;<img src="https://github.com/devicons/devicon/blob/master/icons/git/git-original-wordmark.svg" title="Git" **alt="Git" width="40" height="40"/>
 </div>
@@ -11,16 +11,9 @@ Program that simulates a bookshelf where you can store, remove and list your boo
 
 Battleship requires .NET 6.0 to run. [Install here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
-To install the dependencies use the command below.
-
-```sh
-dotnet restore
-```
-
 Use the commands below to open and run the application.
 
 ```sh
-dotnet build
 dotnet run
 ```
 
