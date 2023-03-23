@@ -77,9 +77,12 @@ namespace BookManager.BookManager
 
             while (line != null)
             {
-                try
-                {
                     // Armazena informações em uma array
+                    while (line.Split('|').Length != 5)
+                    {
+                        line = _sr.ReadLine();
+                    }
+
                     aux = line.Split('|');
 
                     // Cria uma array auxiliar com informações de cada atributo do objeto
@@ -93,16 +96,11 @@ namespace BookManager.BookManager
                         int colon = aux[i].IndexOf(':');
 
                         // Armazena tudo após ele
-                        string objectAux = aux[i].Substring(colon + 2);
-                        objectCreator[i] = objectAux;
+                        objectCreator[i] = aux[i].Substring(colon + 1);
                     }
 
                     // Cria um novo objeto com a array auxiliar e armazena na lista
                     books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3]), objectCreator[4]));
-                } catch(Exception ex)
-                {
-                    
-                }
                 line = _sr.ReadLine();
             }
             _sr.Close();

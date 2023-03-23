@@ -27,12 +27,24 @@ namespace BookManager.CreateBook
         public ISBN (string fullISBN)
         {
             // Separa uma string que contém ISBN completo e divide as informações entre os atributos
+            if (fullISBN == "") fullISBN = "000-00-00000-00-0";
             string[] isbnSeparator = fullISBN.Split('-');
-            GTIN = isbnSeparator[0];
-            Group = isbnSeparator[1];
-            Element = isbnSeparator[2];
-            Publisher = isbnSeparator[3];
-            VerificationDigit = isbnSeparator[4];
+            if (isbnSeparator.Length < 4) 
+            {
+                GTIN = "000";
+                Group = "00";
+                Element = "00000";
+                Publisher = "00";
+                VerificationDigit = "0";
+            }
+            else
+            {
+                GTIN = isbnSeparator[0];
+                Group = isbnSeparator[1];
+                Element = isbnSeparator[2];
+                Publisher = isbnSeparator[3];
+                VerificationDigit = isbnSeparator[4];
+            }
         }
 
         public override string ToString()
