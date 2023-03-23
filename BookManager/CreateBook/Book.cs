@@ -55,6 +55,11 @@ namespace BookManager.CreateBook
             return InlineWriters;
         }
 
+        public string BackupString()
+        {
+            return $"{Title}|{Publisher}|{InlineWriters}|{ISBN}|{Status}";
+        }
+
         public override string ToString()
         {
             return $"Título: {Title} | Editora: {Publisher} | Autores: {InlineWriters} | ISBN: {ISBN} | Status: {Status}";

@@ -37,11 +37,26 @@ namespace BookManager.BookManager
 
         public bool FileExists()
         {
-            return File.Exists(FullPath);
+            return File.Exists(@"backup.ebm");
+        }
+
+        public bool WriteBackup(List<Book> books)
+        {
+            _sw = new StreamWriter(@"backup.ebm");
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                _sw.WriteLine(books[i].BackupString());
+            }
+
+            _sw.Close();
+            return true;
         }
 
         public bool OverWrite(List<Book> books)
         {
+            if (!WriteBackup(books)) return false;
+
             // Sobrescrever informações
             _sw = new StreamWriter(FullPath);
 
@@ -73,7 +88,7 @@ namespace BookManager.BookManager
             // Tenta ler arquivo
             try
             {
-                _sr = new StreamReader(FullPath);
+                _sr = new StreamReader(@"backup.ebm");
             }
             catch (Exception ex)
             {
@@ -84,45 +99,18 @@ namespace BookManager.BookManager
 
             // Armazena linha por linha cada livro
             string line = _sr.ReadLine();
-            string[] aux;
 
             while (line != null)
             {
-                // Verifica se linha não é nula ou que não é um formato válido
-                while (line != null && line == "")
-                {
-                    line = _sr.ReadLine();
-                }
+                string[] aux = line.Split('|');
 
-                if (line == null) break;
+                string title = aux[0];
+                string publisher = aux[1];
+                string writers = aux[2];
+                string isbn = aux[3];
+                string status = aux[4];
 
-                // Verifica se linha não é nula ou que não é um formato válido
-                while (line != null && line.Split('|').Length != 5)
-                {
-                    line = _sr.ReadLine();
-                }
-
-                if (line == null) break;
-
-                    // Armazena informações em uma array
-                    aux = line.Split('|');
-
-                    // Cria uma array auxiliar com informações de cada atributo do objeto
-                    string[] objectCreator = new string[aux.Length];
-
-                    for (int i = 0; i < aux.Length; i++)
-                    {
-                        aux[i] = aux[i].Trim();
-
-                        // Pega a primeira aparição do ':'
-                        int colon = aux[i].IndexOf(':');
-
-                        // Armazena tudo após ele
-                        objectCreator[i] = aux[i].Substring(colon + 1).Trim();
-                    }
-
-                    // Cria um novo objeto com a array auxiliar e armazena na lista
-                    books.Add(new Book(objectCreator[0], objectCreator[1], objectCreator[2], new ISBN(objectCreator[3]), objectCreator[4]));
+                books.Add(new Book(title, publisher, writers, new ISBN(isbn), status));
                 line = _sr.ReadLine();
             }
             _sr.Close();
