@@ -48,7 +48,7 @@ Choose an item from the list to have the status changed.
 
 ### Sort
 
-You can sort your list by name, your writers, or by current status.
+You can sort your list by name, its writers, or by current status.
 
 ## Development
 
