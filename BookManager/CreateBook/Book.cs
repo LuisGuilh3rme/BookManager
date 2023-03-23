@@ -29,9 +29,7 @@ namespace BookManager.CreateBook
         public void ChangeStatus()
         {
             // Troca o status do livro
-            if (Status == "Guardado")
-                Status = "Emprestado";
-
+            if (Status == "Guardado") Status = "Emprestado";
             else Status = "Guardado";
         }
 

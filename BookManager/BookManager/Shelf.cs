@@ -19,7 +19,7 @@ namespace BookManager.BookManager
             if (Books.IndexOf(book) != -1) return false;
 
             Books.Add(book);
-            fm.StoreItem(book.ToString());
+            fm.OverWrite(Books);
 
             return true;
         }
