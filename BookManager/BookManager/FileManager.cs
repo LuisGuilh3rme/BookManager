@@ -90,27 +90,11 @@ namespace BookManager.BookManager
                         aux[i] = aux[i].Trim();
 
                         // Pega a primeira aparição do ':'
-                        int doubleDot = aux[i].IndexOf(':');
+                        int colon = aux[i].IndexOf(':');
 
                         // Armazena tudo após ele
-                        string objectAux = "";
-                        for (int j = doubleDot + 1; j < aux[i].Length; j++)
-                        {
-
-                            // Verifica se está na linha do isbn, e verifica se é valido
-                            if (i == 3)
-                            {
-                                // Se for inválida, imprimir valor zerado
-                                if (aux[i].Length != 23)
-                                {
-                                    objectAux += "000-00-00000-00-00";
-                                    break;
-                                }
-                            }
-
-                            objectAux += aux[i][j];
-                        }
-                        objectCreator[i] = objectAux.Trim();
+                        string objectAux = aux[i].Substring(colon + 2);
+                        objectCreator[i] = objectAux;
                     }
 
                     // Cria um novo objeto com a array auxiliar e armazena na lista
