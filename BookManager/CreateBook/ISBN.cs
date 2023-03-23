@@ -29,7 +29,8 @@ namespace BookManager.CreateBook
             // Separa uma string que contém ISBN completo e divide as informações entre os atributos
             if (fullISBN == "") fullISBN = "000-00-00000-00-0";
             string[] isbnSeparator = fullISBN.Split('-');
-            if (isbnSeparator.Length < 4) 
+
+            if (isbnSeparator.Length < 5) 
             {
                 GTIN = "000";
                 Group = "00";
