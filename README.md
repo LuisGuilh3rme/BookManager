@@ -9,7 +9,7 @@ Program that simulates a bookshelf where you can store, remove and list your boo
 
 ## Requirements
 
-Battleship requires .NET 6.0 to run. [Install here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+BookManager requires .NET 6.0 to run. [Install here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 Use the commands below to open and run the application.
 
